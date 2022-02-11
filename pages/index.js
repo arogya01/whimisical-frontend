@@ -1,14 +1,21 @@
 import Head from "next/head";
 import Image from "next/image";
+import BlogCard from "../components/blog-card";
+import BlogGrid from "../components/blog-grid";
 import Navbar from "../components/navbar";
 
-export default function Home() {
+
+
+
+export default function Home({allBlogsData}) {
   return (
     <div>
-      <Head>
-        <link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet' />
-      </Head>
+     <Head>
+       <title>Blog Page</title>
+     </Head>
       <Navbar />
+      <BlogGrid/>
+      
     </div>
   );
 }
