@@ -1,5 +1,33 @@
+import {useReducer,useEffect} from "react"; 
+
+
 export default function Login() {
-    return (
+  const initialState = {
+    name: "arogya",
+    email: "",
+    password: "",
+  };
+
+  function reducer(state, action) {
+    switch (action.type) {
+      case "addUser":
+        return { ...state, [action.field]: action.payload };
+        break;
+    }
+  }
+
+  const handleTextChange = (event) => {
+    dispatch({
+      type: "addUser",
+      field: event.target.name,
+      payload: event.target.value,
+    });
+  };
+
+  const [formState,dispatcher] = useReducer(reducer,initialState);
+
+
+  return (
       <div className="w-full h-screen m-auto flex flex-row items-center justify-center ">
         <form action="/" method="POST" className="flex flex-row flex-wrap    border-2 p-6 w-1/2">
 
@@ -28,7 +56,21 @@ export default function Login() {
             />
           </div>
           <div className="mt-4 w-full grid place-content-center">
-          <button type="submit" className="bg-cyan-500 transition-all hover:bg-cyan-600  font-bold font-sans p-3 rounded-md mr-8 p-2.5">
+          <button type="submit" className="bg-cyan-500 transition-all hover:bg-cyan-600  font-bold font-sans p-3 rounded-md mr-8 p-2.5"
+          onClick={async ()=>{ 
+            const res = fetch("http://localhost:3001/login",{
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+              },
+              method:"GET",
+              body:JSON.stringify(formState)
+            });
+            
+            const loginDetails = await res.json(); 
+            console.log(loginDetails);
+          }}
+          >
             Login
           </button>
           </div>
