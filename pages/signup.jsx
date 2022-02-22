@@ -1,113 +1,35 @@
 import Image from "next/image";
 import gradient from "../public/gradient03.jpg";
-import { useReducer, useEffect } from "react";
+import { useReducer, useEffect, useContext } from "react";
+import {PopupDialogContext} from "../context/popupDialogContext";
+import Loader from "../utility/Loader/Loader";
+import GlobalSpinnerContextProvider from "../context/globalSpinnerContext";
+import { GlobalSpinnerContext } from "../context/globalSpinnerContext";
+import UserForm from "../utility/userForm";
+import PopupDialogContextProvider from "../context/popupDialogContext";
+
 
 export default function Signup() {
-  const initialState = {
-    name: "arogya",
-    email: "",
-    password: "",
-  };
 
-  function reducer(state, action) {
-    switch (action.type) {
-      case "addUser":
-        return { ...state, [action.field]: action.payload };
-        break;
-    }
-  }
-
-  const [formState, dispatch] = useReducer(reducer, initialState);
-
-  const handleTextChange = (event) => {
-    dispatch({
-      type: "addUser",
-      field: event.target.name,
-      payload: event.target.value,
-    });
-  };
-
-  useEffect(() => {
-    console.log(formState);
-  }, [formState]);
-
-  const registerUser  = async (event) => {
-    event.preventDefault();
-    const res =await fetch("http://localhost:3001/signup", {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      method:"POST",
-      body:JSON.stringify(formState)
-    });
-
-    const result = await res.json(); 
-    console.log(result);
-  }
-
+  // 
+ 
+  // const [isPopupDialogOn, setPopupDialog] = useContext(PopupDialogContext);
+  // const [setGlobalSpinner] = useContext(GlobalSpinnerContext);
+  
   return (
-    <div className="w-full h-screen flex flex-row  ">
+    <PopupDialogContextProvider>
+    <GlobalSpinnerContextProvider>
+    <div className="w-full h-screen flex flex-row">
       <Image src={gradient} alt="something" width={500} height={500} />
-      <form
-        onSubmit={(event)=>{registerUser(event) }}
-        className="flex flex-row flex-wrap self-center mx-auto border-2 p-6 w-1/2"
-      >
-        <div className="mb-4 w-full">
-          <label htmlFor="full_name" className="block font-bold">
-            Full Name
-          </label>
-          <input
-            type="text"
-            id="full_name"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm block border-2   w-full  rounded-lg p-2.5"
-            placeholder="arogya"
-            value={formState.name}
-            name="name" 
-            autoComplete="name"
-            onChange={(event) => handleTextChange(event)}
-            required
-          />
-        </div>
-        <div className="mb-4 w-full">
-          <label htmlFor="email" className="block font-bold">
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm block border-2  w-full rounded-lg p-2.5"
-            value={formState.email}
-            onChange={(event) => handleTextChange(event)}
-            placeholder="arogya@gmail.com"
-            required
-          />
-        </div>
-        <div className="mb-4 w-full">
-          <label htmlFor="password" className="block font-bold">
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm block border-2  w-full  rounded-lg p-2.5"
-            value={formState.password}
-            onChange={(event) => handleTextChange(event)}
-            placeholder="arogya12"
-            required
-          />
-        </div>
-        <div className="mt-4 w-full grid place-content-center">
-          <button
-            type="submit"
-            className="bg-cyan-500 transition-all hover:bg-cyan-600  font-bold font-sans p-3 rounded-md mr-8 p-2.5"
-          >
-            Signup
-          </button>
-        </div>
-      </form>
+      <div className="m-auto relative">
+      <div className="absolute top-1/2 left-1/3 z-20">
+      <Loader/>
+      </div>
+      
+      <UserForm/>
+      </div>
     </div>
+    </GlobalSpinnerContextProvider>
+    </PopupDialogContextProvider>
   );
 }
