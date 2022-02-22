@@ -10,7 +10,7 @@ module.exports = {
         btnColor: "#3C5A5F",
       },
       fontFamily: {
-        sans: ["Inter", "sans-serif"],
+        sans: ['DM Sans', "sans-serif"],
       },
     },
   },
