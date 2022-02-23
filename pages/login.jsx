@@ -2,7 +2,6 @@ import { useReducer, useEffect } from "react";
 
 export default function Login() {
   const initialState = {
-    name: "arogya",
     email: "",
     password: "",
   };
@@ -23,27 +22,43 @@ export default function Login() {
     });
   };
 
-  const [formState, dispatcher] = useReducer(reducer, initialState);
+  const [formState, dispatch] = useReducer(reducer, initialState);
+
+   useEffect(()=>{
+     console.log(formState);
+   },[formState]);
 
   const handleUserLogin = async (event) => {
     event.preventDefault();
-    const res = fetch("http://localhost:3001/login", {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-      body: JSON.stringify(formState),
-    });
+    console.log(formState);
+    try{
+      const res = await fetch("http://localhost:3001/login", {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify(formState),
+      });
+  
+      const JSONDetails = await res.json();
+      console.log(JSONDetails);
 
-    const JSONDetails = await res.json();
-    console.log(loginDetails);
+    }
+   catch(err){
+     if(!err){
+       console.log("no error response");
+     }
+     console.log("error message:",err);
+   }
   };
 
   return (
     <div className="w-full h-screen m-auto flex flex-row items-center justify-center ">
       <form
-        onSubmit={handleUserLogin}
+        onSubmit={(event) => {
+          handleUserLogin(event);
+        }}
         className="flex flex-row flex-wrap    border-2 p-6 w-1/2"
       >
         <div className="mb-4 w-full">
@@ -54,7 +69,12 @@ export default function Login() {
             type="email"
             id="email"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm block border-2  w-full rounded-lg p-2.5"
+            name="email"
+            value={formState.email}
             placeholder="arogya@gmail.com"
+            onChange={(event) => {
+             handleTextChange(event);
+            }}
             required
           />
         </div>
@@ -65,8 +85,13 @@ export default function Login() {
           <input
             type="password"
             id="password"
+            name="password"
+            value={formState.password}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm block border-2  w-full  rounded-lg p-2.5"
             placeholder="arogya12"
+            onChange={(event) => {
+             handleTextChange(event);
+            }}
             required
           />
         </div>
