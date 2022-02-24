@@ -1,6 +1,16 @@
-import { useReducer, useEffect } from "react";
+import { useReducer, useEffect, useContext } from "react";
+import {useRouter} from 'next/router';
+import Layout from '../components/Layout';
+import {AuthContext} from '../context/authProvider';
+import { GlobalSpinnerContext } from "../context/globalSpinnerContext";
+import Loader from "../utility/Loader/Loader";
+
 
 export default function Login() {
+  const router = useRouter();
+  const [userAuth,setUserAuth] = useContext(AuthContext);
+  const [globalSpinner,setGlobalSpinner] = useContext(GlobalSpinnerContext);
+
   const initialState = {
     email: "",
     password: "",
@@ -29,9 +39,11 @@ export default function Login() {
    },[formState]);
 
   const handleUserLogin = async (event) => {
+    setGlobalSpinner(true);
     event.preventDefault();
     console.log(formState);
     try{
+
       const res = await fetch("http://localhost:3001/login", {
         headers: {
           Accept: "application/json",
@@ -40,9 +52,12 @@ export default function Login() {
         method: "POST",
         body: JSON.stringify(formState),
       });
-  
-      const JSONDetails = await res.json();
-      console.log(JSONDetails);
+    
+      const userDetails = await res.json();
+      console.log(userDetails);
+      setUserAuth(userDetails);
+      localStorage.setItem("userInfo",JSON.stringify(userDetails));
+      // router.push("/");
 
     }
    catch(err){
@@ -53,7 +68,14 @@ export default function Login() {
    }
   };
 
+  // useEffect(
+  //   ()=>{
+  //     router.push("/");
+  //   }
+  // ,[userAuth])
+
   return (
+    
     <div className="w-full h-screen m-auto flex flex-row items-center justify-center ">
       <form
         onSubmit={(event) => {
@@ -98,12 +120,19 @@ export default function Login() {
         <div className="mt-4 w-full grid place-content-center">
           <button
             type="submit"
-            className="bg-cyan-500 transition-all hover:bg-cyan-600  font-bold font-sans p-3 rounded-md mr-8 p-2.5"
+            className="relative bg-cyan-500 transition-all hover:bg-cyan-600  font-bold font-sans p-3 rounded-md mr-8 p-2.5"
           >
+           {
+             globalSpinner ? (
+               <Loader />
+             ) :
+             ""
+           }
             Login
           </button>
         </div>
       </form>
     </div>
+    
   );
 }
