@@ -1,6 +1,6 @@
 import { useContext, useReducer, useEffect } from "react";
 import { GlobalSpinnerContext } from "../context/globalSpinnerContext";
-
+import FormBtn from "./formBtn";
 
 export default function UserForm() {
     const [isGlobalSpinnerOn, setGlobalSpinner] = useContext(GlobalSpinnerContext);
@@ -29,11 +29,12 @@ export default function UserForm() {
   };
 
   useEffect(() => {
+
     console.log(formState);
   }, [formState]);
 
   const registerUser = async (event) => {
-    setGlobalSpinner(true);
+    
     event.preventDefault();
 
     const res = await fetch("http://localhost:3001/signup", {
@@ -52,7 +53,7 @@ export default function UserForm() {
   };
 
   return (
-    <div className="z-2 bg-gray-100">
+    <div className="z-2 bg-gray-100 ">
     <form
       onSubmit={(event) => {
         registerUser(event);
@@ -107,12 +108,7 @@ export default function UserForm() {
         />
       </div>
       <div className="mt-4 w-full grid place-content-center">
-        <button
-          type="submit"
-          className="bg-cyan-500 transition-all hover:bg-cyan-600  font-bold font-sans p-3 rounded-md mr-8 p-2.5"
-        >
-          Signup
-        </button>
+       <FormBtn/>
       </div>
     </form>
     </div>
