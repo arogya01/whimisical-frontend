@@ -1,5 +1,4 @@
 import Link from 'next/Link';
-import Loader from '../utility/Loader/Loader';
 
 
 export default function PopupDialog(){
