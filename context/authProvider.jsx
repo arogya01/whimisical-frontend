@@ -8,8 +8,13 @@ export default function AuthProvider(props) {
 //     email: "",
 //     token: "",
 //   };
-  const [userAuth, setUserAuth] = useState({});
   
+  const [userAuth, setUserAuth] = useState({});
+   
+  // const retrieveUser = window.localStorage.getItem("userInfo");
+  // const result = retrieveUser.json();
+
+  // setUserAuth(result);
   return (
     <AuthContext.Provider value={[ userAuth, setUserAuth ]}>
       {props.children}

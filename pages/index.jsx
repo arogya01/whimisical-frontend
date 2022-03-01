@@ -4,38 +4,47 @@ import BlogCard from "../components/blog-card";
 import BlogGrid from "../components/blog-grid";
 import Navbar from "../components/navbar";
 import {useState,useEffect} from "react";
-import Loader from '../utility/Loader/Loader'
-
+import Spinner from "../utility/Spinner";
+import NavbarBtn from "../utility/navbarBtn";
 export default function Home({allBlogsData}) {
   
   const [isLoading,setIsLoading] = useState(false);
-  
-  
-  // useEffect(()=>{
-  //  setIsLoading(true);
-  //  console.log("useEffect is running");
-  // const loadingTimer= setTimeout(()=>{
-  //     console.log("setTimout Ran");
-  //     setIsLoading(false);
-  //  },5000);
-
-  //  return(
-  //    clearTimeout(loadingTimer)
-  //  );
-  // });
+  const [isMenuOpen, setMenu] = useState(false);
   
   return (
    isLoading ? ( 
-    <Loader  /> 
+    <Spinner  /> 
    ) : (
-    <div>
+    <>
     <Head>
       <title>Blog Page</title>
     </Head>
-     <Navbar />
+     <Navbar setMenu={setMenu} isMenuOpen={isMenuOpen}/>
+     {
+       isMenuOpen ? ( 
+        
+     <ul className="md:hidden w-full flex flex-col justify-center items-center">
+        <li   className="py-6 flex justify-center items-center  transition ease-in-out delay-150 duration-300"
+        >
+          <NavbarBtn btnName="dashboard" btnLink="/dashboard" />
+        </li>
+        <li  className="py-6 flex justify-center items-center transition ease-in-out delay-150 duration-300"
+        >
+          <NavbarBtn btnName="Register" btnLink="/signup" />
+        </li>
+        <li  className="py-6 flex justify-center items-center transition ease-in-out delay-150 duration-300"
+        >
+          <NavbarBtn btnName="Login" btnLink="/login" />
+        </li>
+      </ul>
+
+     
+       ) : " "
+     }
+     
      <BlogGrid/>
      
-   </div>
+   </>
    )
   
   );

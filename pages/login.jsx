@@ -3,8 +3,7 @@ import {useRouter} from 'next/router';
 import Layout from '../components/Layout';
 import {AuthContext} from '../context/authProvider';
 import { GlobalSpinnerContext } from "../context/globalSpinnerContext";
-import Loader from "../utility/Loader/Loader";
-
+import Spinner from "../utility/Spinner";
 
 export default function Login() {
   const router = useRouter();
@@ -36,6 +35,10 @@ export default function Login() {
 
    useEffect(()=>{
      console.log(formState);
+
+     return(
+       setGlobalSpinner(false)
+     )
    },[formState]);
 
   const handleUserLogin = async (event) => {
@@ -57,7 +60,7 @@ export default function Login() {
       console.log(userDetails);
       setUserAuth(userDetails);
       localStorage.setItem("userInfo",JSON.stringify(userDetails));
-      // router.push("/");
+      router.push("/");
 
     }
    catch(err){
@@ -124,7 +127,7 @@ export default function Login() {
           >
            {
              globalSpinner ? (
-               <Loader />
+               <Spinner />
              ) :
              ""
            }

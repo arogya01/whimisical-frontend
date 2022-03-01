@@ -1,5 +1,5 @@
 import Image from "next/image";
-import blogOne from "../public/Blog-1.png";
+import blogOne from "../public/4.jpg";
 
 export default function BlogCard({ imgSrc, blogHeadline, blogContent }) {
   return (
