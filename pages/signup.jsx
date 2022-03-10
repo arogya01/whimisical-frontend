@@ -1,5 +1,4 @@
 import Image from "next/image";
-import gradient from "../public/gradient03.jpg";
 import { useReducer, useEffect, useContext } from "react";
 import { PopupDialogContext } from "../context/popupDialogContext";
 import Spinner from "../utility/Spinner";
