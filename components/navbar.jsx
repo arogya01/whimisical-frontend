@@ -58,11 +58,11 @@ export default function Navbar({ isMenuOpen, setMenu }) {
                 className="w-10 h-10 text-gray-900 transition ease-in-out delay-150 duration-300"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 fill="none"
-                shape-rendering="geometricPrecision"
+                shapeRendering="geometricPrecision"
                 data-hide="true"
               >
                 <path d="M18 6L6 18"></path>
@@ -79,16 +79,16 @@ export default function Navbar({ isMenuOpen, setMenu }) {
                 <path
                   d="M2.5 7.5H17.5"
                   stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 ></path>
                 <path
                   d="M2.5 12.5H17.5"
                   stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 ></path>
               </svg>
             )}
