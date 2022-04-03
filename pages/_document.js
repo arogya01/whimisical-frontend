@@ -1,5 +1,4 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
-import AuthProvider from '../context/authProvider'
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -16,10 +15,10 @@ class MyDocument extends Document {
          <link rel="icon" href="/broom.png" />
      </Head>
         <body>
-          <AuthProvider>
+
           <Main />
           <NextScript />
-          </AuthProvider>
+          
         </body>
       </Html>
     )

@@ -1,4 +1,6 @@
 import allBlogsData from "../../public/blogs.json";
+import Image from 'next/image';
+
 
 export default function Posts({postData}) {
     return (
